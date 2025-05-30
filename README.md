@@ -25,8 +25,8 @@ This Python script performs a series of common checks to assist in identifying p
 ```bash
 git clone https://github.com/yourusername/linux-privesc-checker.git
 cd linux-privesc-checker
-chmod +x linux_privesc_check.py
-./linux_privesc_check.py
+chmod +x privesc_checker_linux.py
+./privesc_checker_linux.py
 ```
 
 ## Author
