@@ -43,11 +43,18 @@ def check_cron_jobs():
     print(run_command("ls -la /etc/cron.*"))
 
 def check_docker_socket():
-    print("[+] Checking for Docker socket...")
-    if os.path.exists("/var/run/docker.sock"):
+    print("[+] Checking for Docker privilege escalation vector.....")
+    result = run_command("groups")
+    docker_socket_path = "/var/run/docker.sock"
+    has_read_access = os.access(docker_socket_path, os.R_OK)
+    has_write_access = os.access(docker_socket_path, os.W_OK)
+
+    if "docker" in result:
+        print("[!] Our user is part of the docker group!, Privilege escalation is possible through container escape.")
+    elif has_read_access and has_write_access:
         print("    [!] Docker socket found! You might gain root access via container escape.")
     else:
-        print("    [-] Docker socket not found.")
+        print("    [-] Privilege escalation using docker not possible.")
 
 def check_kernel_version():
     print("[+] Checking kernel version and known exploit potential...")
