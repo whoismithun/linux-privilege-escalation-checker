@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import os
 import subprocess
-import re
 import platform
 
 def run_command(command):
